@@ -1,0 +1,21 @@
+{
+  "name": "node-backend",
+  "version": "1.0.0",
+  "description": "基于nodejs实现的为LaraVue社区提供的后端API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "connect-mongo": "^1.3.2",
+    "express": "^4.15.4",
+    "mongoose": "^4.11.12"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
+  }
+}
