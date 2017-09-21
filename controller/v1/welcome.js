@@ -1,6 +1,6 @@
 'use strict';
 
-// import AdminModel from '../../models/admin/admin'
+import UserModel from '../../models/user'
 // import AddressComponent from '../../prototype/addressComponent'
 // import crypto from 'crypto'
 // import formidable from 'formidable'
@@ -8,10 +8,10 @@
 
 class Admin {
 	home(req, res, next) {
-		res.send({
-			status: 1,
-			success: 'hello world'
-		})
+    console.log('OK');
+    const orders = UserModel.find();
+    console.log(orders);
+    res.send(orders);
 	}
 }
 

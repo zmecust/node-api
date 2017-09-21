@@ -2,5 +2,5 @@
 
 module.exports = {
 	port: 8001,
-	url: 'mongodb://localhost',
+	url: 'mongodb://127.0.0.1:27017',
 }
