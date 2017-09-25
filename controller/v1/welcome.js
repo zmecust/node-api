@@ -9,7 +9,7 @@ import UserModel from '../../models/user'
 class Admin {
 	home(req, res, next) {
     console.log('OK');
-    const orders = UserModel.find();
+    const orders = UserModel.findOne();
     console.log(orders);
     res.send(orders);
 	}
