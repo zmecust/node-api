@@ -21,7 +21,7 @@ app.all('*', (req, res, next) => {
   }
 });
 
-const MongoStore = connectMongo(session); //session的持久化
+const MongoStore = connectMongo(session); //session的持久化, 把会话信息存储在mongodb中
 app.use(cookieParser());
 app.use(session({
   name: config.session.name,
