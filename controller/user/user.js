@@ -1,7 +1,6 @@
 'use strict';
 
 import UserModel from '../../models/user'
-import crypto from 'crypto'
 import formidable from 'formidable'
 
 class Admin {
@@ -67,14 +66,6 @@ class Admin {
         })
       }
     })
-  }
-  encryption(password) {
-    const newpassword = this.Md5(this.Md5(password).substr(2, 5) + this.Md5(password));
-    return newpassword
-  }
-  Md5(password) {
-    const md5 = crypto.createHash('md5');
-    return md5.update(password).digest('base64');
   }
 }
 
