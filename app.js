@@ -5,6 +5,9 @@ import router from './routes/index.js';
 import db from './mongodb/db.js'; //连接数据库
 import cookieParser from 'cookie-parser'
 import session from 'express-session';
+import * as jwt from 'jwt-simple';
+
+app.set('jwtTokenSecret', 'phpsucks!');
 
 const app = express();
 
@@ -21,18 +24,18 @@ app.all('*', (req, res, next) => {
   }
 });
 
-const MongoStore = connectMongo(session); //session的持久化, 把会话信息存储在mongodb中
-app.use(cookieParser());
-app.use(session({
-  name: config.session.name,
-  secret: config.session.secret,
-  resave: true,
-  saveUninitialized: false,
-  cookie: config.session.cookie,
-  store: new MongoStore({
-    url: config.url,
-  })
-}))
+// const MongoStore = connectMongo(session); //session的持久化, 把会话信息存储在mongodb中
+// app.use(cookieParser());
+// app.use(session({
+//   name: config.session.name,
+//   secret: config.session.secret,
+//   resave: true,
+//   saveUninitialized: false,
+//   cookie: config.session.cookie,
+//   store: new MongoStore({
+//     url: config.url,
+//   })
+// }))
 
 router(app);
 
