@@ -16,7 +16,8 @@
     "express-session": "^1.15.5",
     "formidable": "^1.1.1",
     "jwt-simple": "^0.5.1",
-    "mongoose": "^4.11.12"
+    "mongoose": "^4.11.12",
+    "redis": "^2.8.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

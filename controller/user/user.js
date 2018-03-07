@@ -102,7 +102,6 @@ class User extends BaseController {
           console.log('该用户已经存在');
           res.send({
             status: 0,
-
             type: 'USER_HAS_EXIST',
             message: '该用户已经存在',
           })
