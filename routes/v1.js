@@ -2,7 +2,7 @@
 
 import express from 'express'
 import Welcome from '../controller/v1/welcome'
-import User from '../controller/v1/user'
+import User from '../controller/user/user'
 const router = express.Router();
 
 router.get('/welcome', Welcome.home);

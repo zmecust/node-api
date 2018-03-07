@@ -5,9 +5,6 @@ import router from './routes/index.js';
 import db from './mongodb/db.js'; //连接数据库
 import cookieParser from 'cookie-parser'
 import session from 'express-session';
-import * as jwt from 'jwt-simple';
-
-app.set('jwtTokenSecret', 'phpsucks!');
 
 const app = express();
 

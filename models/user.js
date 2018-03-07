@@ -20,6 +20,7 @@ const userSchema = new Schema({
   followings_count: { type: Number, default: 0 },
   is_banned: { type: Number, default: 0 },    //0:未禁用、 1:已禁用
   is_confirmed: { type: Number, default: 0 }, //0:未激活、 1:已激活
+  created_at: { type: Date, default: Date.now },
   last_actived_at: { type: Date, default: Date.now },
 })
 

@@ -1,10 +1,16 @@
 'use strict';
 
 import UserModel from '../../models/user'
+import BaseController from '../prototype/baseController'
 import formidable from 'formidable'
 import * as jwt from 'jwt-simple';
 
-class Admin {
+class User extends BaseController {
+  constructor() {
+    super();
+    this.login = this.login.bind(this);
+  }
+
   async login(req, res, next) {
     const form = new formidable.IncomingForm();
     form.parse(req, async (err, fields, files) => {
@@ -16,7 +22,6 @@ class Admin {
           throw new Error('密码参数错误');
         }
       } catch (err) {
-        console.log('登陆参数错误', err);
         res.send({
           status: 0,
           type: 'ERROR_QUERY',
@@ -26,7 +31,7 @@ class Admin {
       }
       const newpassword = this.encryption(password);
       try {
-        const user = await UserModel.findOne({ username });
+        const user = await UserModel.findOne({ name });
         //创建一个新的用户
         if (!user) {
           res.send({
@@ -35,7 +40,6 @@ class Admin {
             message: '未找到该用户',
           })
         } else if (user.password.toString() !== newpassword.toString()) {
-          console.log('用户登录密码错误')
           res.send({
             status: 0,
             type: 'ERROR_PASSWORD',
@@ -50,12 +54,12 @@ class Admin {
             exp: expires, // expires token的生命周期
           }, 'jwtTokenSecret');
           res.send({
+            user: user,
             token: token,
             expires: expires
           });
         }
       } catch (err) {
-        console.log('用户登陆失败', err);
         res.send({
           status: 0,
           type: 'SAVE_USER_FAILED',
@@ -131,4 +135,4 @@ class Admin {
   }
 }
 
-export default new Admin()
+export default new User()
