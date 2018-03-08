@@ -1,14 +1,15 @@
 'use strict';
 
-import UserModel from '../../models/user'
-import BaseController from '../prototype/baseController'
+import UserModel from '../models/user'
+import BaseController from './baseController'
 import formidable from 'formidable'
-import * as jwt from 'jwt-simple';
+import * as jwt from 'jwt-simple'
 
 class User extends BaseController {
   constructor() {
     super();
     this.login = this.login.bind(this);
+    this.register = this.register.bind(this);
   }
 
   async login(req, res, next) {
@@ -97,8 +98,8 @@ class User extends BaseController {
         return
       }
       try {
-        const admin = await AdminModel.findOne({ name })
-        if (admin) {
+        const user = await UserModel.findOne({ name })
+        if (user) {
           console.log('该用户已经存在');
           res.send({
             status: 0,
@@ -106,22 +107,27 @@ class User extends BaseController {
             message: '该用户已经存在',
           })
         } else {
-          const admin_id = await this.getId('admin_id');
+          const user_id = await this.getId('user_id');
           const newpassword = this.encryption(password);
-          const newAdmin = {
+          let newUser = {
             name,
             password: newpassword,
-            id: admin_id,
-            create_time: dtime().format('YYYY-MM-DD'),
-            admin: adminTip,
-            status,
+            id: user_id,
           }
-          await AdminModel.create(newAdmin)
-          req.session.admin_id = admin_id;
+          newUser = await UserModel.create(newUser)
+          // 产生token过期时间，这里设置
+          let expires = Date.now() + 7 * 24 * 60 * 60 * 1000;
+          let token = jwt.encode({
+            iss: user_id, // issuer 表明请求的实体
+            exp: expires, // expires token的生命周期
+          }, 'jwtTokenSecret');
           res.send({
             status: 1,
             message: '注册成功',
-          })
+            user: newUser,
+            token: token,
+            expires: expires
+          });
         }
       } catch (err) {
         res.send({

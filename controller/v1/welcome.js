@@ -1,13 +1,13 @@
 'use strict';
 
 import UserModel from '../../models/user'
-import BaseController from '../prototype/baseController'
+import BaseController from '../baseController'
 
 class Admin extends BaseController {
-  constructor(){
-		super()
-		this.home = this.home.bind(this);
-	}
+  constructor() {
+    super()
+    this.home = this.home.bind(this);
+  }
 
   async home(req, res, next) {
     try {

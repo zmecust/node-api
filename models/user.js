@@ -20,11 +20,14 @@ const userSchema = new Schema({
   followings_count: { type: Number, default: 0 },
   is_banned: { type: Number, default: 0 },    //0:未禁用、 1:已禁用
   is_confirmed: { type: Number, default: 0 }, //0:未激活、 1:已激活
-  created_at: { type: Date, default: Date.now },
   last_actived_at: { type: Date, default: Date.now },
+  created_at: { type: Date, default: Date.now },
+  updated_at: { type: Date, default: Date.now },
 })
 
 userSchema.index({ id: 1 });
+UserSchema.index({ name: 1 }, { unique: true });
+UserSchema.index({ email: 1 }, { unique: true });
 
 const User = mongoose.model('User', userSchema);
 
