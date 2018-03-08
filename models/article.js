@@ -3,6 +3,7 @@
 import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema;
+const ObjectId  = Schema.ObjectId;
 
 const articleSchema = new Schema({
   id: Number,
@@ -11,7 +12,6 @@ const articleSchema = new Schema({
   title: String,
   body: String,
   article_url: String,
-  articles_count: { type: Number, default: 0 },
   comments_count: { type: Number, default: 0 },
   likes_count: { type: Number, default: 0 },
   view_count: { type: Number, default: 0 },
@@ -24,7 +24,7 @@ const articleSchema = new Schema({
 })
 
 articleSchema.index({ id: 1 });
-TopicSchema.index({ create_at: -1 });
+articleSchema.index({ create_at: -1 });
 
 const Article = mongoose.model('Article', articleSchema);
 

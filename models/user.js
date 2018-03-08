@@ -3,6 +3,7 @@
 import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema;
+const ObjectId  = Schema.ObjectId;
 
 const userSchema = new Schema({
   id: Number,
@@ -26,8 +27,8 @@ const userSchema = new Schema({
 })
 
 userSchema.index({ id: 1 });
-UserSchema.index({ name: 1 }, { unique: true });
-UserSchema.index({ email: 1 }, { unique: true });
+userSchema.index({ name: 1 }, { unique: true });
+userSchema.index({ email: 1 }, { unique: true });
 
 const User = mongoose.model('User', userSchema);
 

@@ -1,9 +1,13 @@
 'use strict';
 
 import ArticleModel from '../models/article'
-import BaseController from './prototype/baseController'
+import UserModel from '../models/user'
+import BaseController from './baseController'
 import formidable from 'formidable'
 import * as jwt from 'jwt-simple'
+import * as config from '../config/default';
+import EventProxy from 'eventproxy';
+import _ from 'lodash';
 
 class Article extends BaseController {
   constructor() {
@@ -12,39 +16,32 @@ class Article extends BaseController {
   }
 
   async index(req, res, next) {
-    var page     = parseInt(req.query.page, 10) || 1;
-    page         = page > 0 ? page : 1;
-    var limit    = Number(req.query.limit) || config.list_topic_count;
-    var mdrender = req.query.mdrender === 'false' ? false : true;
-  
-    var options = { skip: (page - 1) * limit, limit: limit, sort: '-top -last_reply_at'};
-  
-    var ep = new eventproxy();
+    var page = parseInt(req.query.page, 10) || 1;
+    page = page > 0 ? page : 1;
+    var limit = Number(req.query.limit) || config.list_article_count;
+    var options = { skip: (page - 1) * limit, limit: limit, sort: '-created_at' };
+    var ep = new EventProxy();
+
     ep.fail(next);
-  
-    TopicModel.find({}, '', options, ep.done('topics'));
-  
-    ep.all('topics', function (topics) {
-      topics.forEach(function (topic) {
-        UserModel.findById(topic.author_id, ep.done(function (author) {
-          if (mdrender) {
-            topic.content = renderHelper.markdown(at.linkUsers(topic.content));
-          }
-          topic.author = _.pick(author, ['loginname', 'avatar_url']);
+
+    ArticleModel.find({}, '', options, ep.done('articles'));
+
+    ep.all('articles', function (articles) {
+      articles.forEach(function (article) {
+        UserModel.findById(article.user_id, ep.done(function (author) {
+          article.author = _.pick(author, ['name', 'avatar']);
           ep.emit('author');
         }));
       });
-  
-      ep.after('author', topics.length, function () {
-        topics = topics.map(function (topic) {
-          return _.pick(topic, ['id', 'author_id', 'tab', 'content', 'title', 'last_reply_at',
-            'good', 'top', 'reply_count', 'visit_count', 'create_at', 'author']);
+      ep.after('author', articles.length, function () {
+        articles = articles.map(function (article) {
+          return _.pick(article, ['id', 'user_id', 'body', 'title', 'created_at',
+            'comments_count', 'likes_count', 'view_count', 'author']);
         });
-  
-        res.send({success: true, data: topics});
+        res.send({ success: true, data: articles });
       });
     });
-  };  
+  }
 }
 
 export default new Article()
