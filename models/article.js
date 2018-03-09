@@ -7,8 +7,8 @@ const ObjectId  = Schema.ObjectId;
 
 const articleSchema = new Schema({
   id: Number,
-  user_id: { type: ObjectId },
-  category_id: { type: ObjectId },
+  user_id: Number,
+  category: String,
   title: String,
   body: String,
   article_url: String,
@@ -18,7 +18,7 @@ const articleSchema = new Schema({
   close_comment: { type: Number, default: 0 }, //0:关闭评论
   is_hidden: { type: Number, default: 0 },     //0:隐藏
   is_excellent: { type: Number, default: 0 },  //0:精华
-  last_comment_user_id: { type: ObjectId },
+  last_comment_user_id: Number,
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now },
 })

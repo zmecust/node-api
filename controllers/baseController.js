@@ -3,7 +3,7 @@ import Ids from '../models/ids'
 
 export default class BaseComponent {
   constructor() {
-    this.idList = ['user_id'];
+    this.idList = ['user_id', 'article_id'];
   }
 
   encryption(password) {
