@@ -3,8 +3,9 @@ import connectMongo from 'connect-mongo';
 import * as config from './config/default';
 import router from './routes/index.js';
 import db from './mongodb/db.js'; //连接数据库
-import cookieParser from 'cookie-parser'
+import cookieParser from 'cookie-parser';
 import session from 'express-session';
+import requestLog from './middlewares/request_log';
 
 const app = express();
 
@@ -33,6 +34,9 @@ app.all('*', (req, res, next) => {
 //     url: config.url,
 //   })
 // }))
+
+// Request logger 请求时间
+app.use(requestLog);
 
 router(app);
 
