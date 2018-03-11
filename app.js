@@ -9,6 +9,7 @@ import requestLog from './middlewares/request_log';
 
 const app = express();
 
+//跨域
 app.all('*', (req, res, next) => {
   res.header("Access-Control-Allow-Origin", req.headers.origin || '*');
   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
