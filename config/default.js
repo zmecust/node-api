@@ -18,6 +18,8 @@ module.exports = {
   debug: true,
   // 话题列表显示的话题数量
   list_article_count: 20,
-  //log日志
+  // log日志
   log_dir: path.join(__dirname, '../logs'),
+  // jwt配置
+  jwt_secret: 'laravue',
 }

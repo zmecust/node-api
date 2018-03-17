@@ -6,7 +6,6 @@ const Schema = mongoose.Schema;
 const ObjectId  = Schema.ObjectId;
 
 const userSchema = new Schema({
-  id: Number,
   name: String,
   email: String,
   avatar: String,
@@ -26,9 +25,9 @@ const userSchema = new Schema({
   updated_at: { type: Date, default: Date.now },
 })
 
-userSchema.index({ id: 1 });
 userSchema.index({ name: 1 }, { unique: true });
 userSchema.index({ email: 1 }, { unique: true });
+userSchema.index({ created_at: -1 });
 
 const User = mongoose.model('User', userSchema);
 

@@ -11,12 +11,12 @@ class CheckLogin {
     // 获取token,这里默认是放在headers的authorization
     let token = req.headers.authorization;
     if (token) {
-      var decoded = jwt.decode(token, 'jwtTokenSecret');
+      var decoded = jwt.decode(token, req.jwtTokenSecret);
       if (decoded.exp <= Date.now()) {
         res.send({
           status: 0,
-          type: 'ERROR_SESSION',
-          message: '亲，您的登录信息已失效，请重新登录',
+          type: 'TOKEN_OUT_OF_DATE',
+          message: '您的登录信息已失效，请重新登录',
         })
         return
       } else {
@@ -26,8 +26,8 @@ class CheckLogin {
     } else {
       res.send({
 				status: 0,
-				type: 'ERROR_SESSION',
-				message: '亲，您还没有登录',
+				type: 'PLEASE_LOGIN_FIRST',
+				message: '您还没有登录',
 			})
 			return
     }

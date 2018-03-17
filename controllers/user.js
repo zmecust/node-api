@@ -51,7 +51,7 @@ class User extends BaseController {
           // 产生token过期时间，这里设置
           let expires = Date.now() + 7 * 24 * 60 * 60 * 1000;
           let token = jwt.encode({
-            iss: user.id, // issuer 表明请求的实体
+            user_id: user.id, // issuer 表明请求的实体
             exp: expires, // expires token的生命周期
           }, 'jwtTokenSecret');
           res.send({
@@ -118,7 +118,7 @@ class User extends BaseController {
           // 产生token过期时间，这里设置
           let expires = Date.now() + 7 * 24 * 60 * 60 * 1000;
           let token = jwt.encode({
-            iss: user_id, // issuer 表明请求的实体
+            user_id: user_id, // issuer 表明请求的实体
             exp: expires, // expires token的生命周期
           }, 'jwtTokenSecret');
           res.send({
