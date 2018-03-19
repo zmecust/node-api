@@ -20,7 +20,7 @@ class CheckLogin {
         })
         return
       } else {
-        req.user_id = decoded.iss;
+        req.user_id = decoded.user_id;
         return next()
       }
     } else {

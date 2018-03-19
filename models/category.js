@@ -7,7 +7,6 @@ const ObjectId  = Schema.ObjectId;
 
 const categorySchema = new Schema({
   name: String,
-  parent_id: { type: ObjectId, ref: 'Category' },
   articles_count: { type: Number, default: 0 },
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now },
