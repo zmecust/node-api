@@ -24,7 +24,7 @@ class Article extends BaseController {
     var options = { skip: (page - 1) * limit, limit: limit, sort: '-created_at' };
 
     try {
-      let articles = await ArticleModel.find({}, '', options).populate('category_id', 'name').populate('user_id', 'name');
+      let articles = await ArticleModel.find({}, '', options).populate('category_id', 'name').populate('user_id', 'name', 'avatar');
       articles = articles.map((article) => {
         return _.pick(article, [ '_id', 'user_id', 'category_id', 'body', 'title', 'created_at',
           'comments_count', 'likes_count', 'view_count' ]);
