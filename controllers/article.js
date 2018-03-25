@@ -6,9 +6,14 @@ import Category from '../models/category'
 import BaseController from './baseController'
 import formidable from 'formidable'
 import * as jwt from 'jwt-simple'
-import * as config from '../config/default';
-import EventProxy from 'eventproxy';
-import _ from 'lodash';
+import * as config from '../config/default'
+import EventProxy from 'eventproxy'
+import _ from 'lodash'
+import redis from 'redis'
+import { promisify } from 'util'
+
+const redisClient = redis.createClient(config.redis);
+const getAsync = promisify(redisClient.get).bind(redisClient);
 
 class Article extends BaseController {
   constructor() {
@@ -24,13 +29,18 @@ class Article extends BaseController {
     var options = { skip: (page - 1) * limit, limit: limit, sort: '-created_at' };
 
     try {
-      let articles = await ArticleModel.find({}, '', options).populate('category_id', 'name').populate('user_id', 'name', 'avatar');
-      articles = articles.map((article) => {
-        return _.pick(article, [ '_id', 'user_id', 'category_id', 'body', 'title', 'created_at',
-          'comments_count', 'likes_count', 'view_count' ]);
-      });
+      let articles = await getAsync('articles' + page);
+      articles = JSON.parse(articles);
+      //如果redis没有数据
+      if (!articles) {
+        let articles = await ArticleModel.find({}, '', options).populate('category_id', 'name').populate('user_id', 'name');
+        articles = articles.map((article) => {
+          return _.pick(article, ['_id', 'user_id', 'category_id', 'body', 'title', 'created_at',
+            'comments_count', 'likes_count', 'view_count']);
+        });
+        redisClient.set('articles' + page, JSON.stringify(articles));
+      }
       res.send({ success: true, data: articles });
-
     } catch (err) {
       res.send({
         status: 0,

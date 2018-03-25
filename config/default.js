@@ -18,8 +18,13 @@ module.exports = {
   debug: true,
   // 话题列表显示的话题数量
   list_article_count: 20,
-  // log日志
+  // log 日志
   log_dir: path.join(__dirname, '../logs'),
-  // jwt配置
+  // jwt 配置
   jwt_secret: 'laravue',
+  //redis 配置
+  redis: {
+    port: 6379,
+    host: '127.0.0.1',
+  }
 }
