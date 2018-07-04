@@ -23,6 +23,7 @@ class Article extends BaseController {
   }
 
   async index(req, res, next) {
+
     var page = parseInt(req.query.page, 10) || 1;
     page = page > 0 ? page : 1;
     var limit = Number(req.query.limit) || config.list_article_count;
