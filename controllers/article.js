@@ -32,7 +32,7 @@ class Article extends BaseController {
     try {
       let articles = await getAsync('articles' + page);
       articles = JSON.parse(articles);
-      //如果redis没有数据
+      // 如果redis没有数据
       if (!articles) {
         let articles = await ArticleModel.find({}, '', options).populate('category_id', 'name').populate('user_id', 'name');
         articles = articles.map((article) => {
