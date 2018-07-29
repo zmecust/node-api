@@ -4,7 +4,7 @@ import path from 'path'
 
 module.exports = {
   port: 8001,
-  url: 'mongodb://115.28.170.217:27017/laravue',
+  url: 'mongodb://loclalhost:27017/laravue',
   session: {
     name: 'SID',
     secret: 'SID',
