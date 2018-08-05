@@ -1,6 +1,6 @@
 'use strict';
 
 const cacheConfig = require('../config/cacheConfig');
-const cache = require(`./${cacheConfig.store}Cache.js`);
+const cache = require(`./${cacheConfig.driver}Cache.js`);
 
 module.exports = cache;

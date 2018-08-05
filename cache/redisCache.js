@@ -2,8 +2,10 @@
 
 const redis = require('redis');
 const { promisify } = require('util');
-const redisConfig = require('../config/redisConfig');
 const cacheConfig = require('../config/cacheConfig');
+
+const cacheDriver = cacheConfig.driver;
+const redisConfig = cacheConfig.stores[cacheDriver];
 
 const redisClient = redis.createClient(redisConfig);
 const getAsync = promisify(redisClient.get).bind(redisClient);
@@ -14,9 +16,8 @@ class redisCache {
     return await getAsync(key);
   }
 
-  async set(key, value, duration = cacheConfig.ttl) {
+  set(key, value, duration = redisConfig.ttl) {
     redisClient.set(key, value, 'EX', duration);
-    return await getAsync(key);
   }
 
   delete(key) {
