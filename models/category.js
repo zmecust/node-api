@@ -1,19 +1,24 @@
-'use strict';
-
-import mongoose from 'mongoose';
-
-const Schema = mongoose.Schema;
-
-const categorySchema = new Schema({
-  name: String,
-  articles_count: { type: Number, default: 0 },
-  created_at: { type: Date, default: Date.now },
-  updated_at: { type: Date, default: Date.now },
-})
-
-categorySchema.index({ name: 1 }, { unique: true });
-categorySchema.index({ created_at: -1 });
-
-const Category = mongoose.model('Category', categorySchema);
-
-export default Category
+export default (sequelize, DataTypes) => {
+  const Category = sequelize.define(
+    'category',
+    {
+      id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+      name: { type: DataTypes.STRING, defaultValue: 0 },
+      articles_count: { type: DataTypes.INTEGER, defaultValue: 0 },
+      created_at: { type: DataTypes.DATE, defaultValue: Date.now },
+      updated_at: { type: DataTypes.DATE, defaultValue: Date.now },
+    },
+    {
+      classMethods: {
+        associate(models) {
+          Category.hasMany(models.article);
+        }
+      },
+      instanceMethods: {},
+      hooks: {},
+      paranoid: true,
+      underscored: true
+    }
+  );
+  return Category;
+};
