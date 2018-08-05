@@ -1,18 +1,8 @@
-'use strict';
+import koaRouter from 'koa-router';
+import articleController from '../controllers/articleController';
 
-import express from 'express'
-import User from '../controllers/user'
-import Article from '../controllers/article'
-import CheckLogin from '../middlewares/check_login'
-import RegisterValidate from '../validate/register'
-import LoginValidate from '../validate/login'
-import CreateArticleValidate from '../validate/create_article'
+const router = koaRouter();
 
-const router = express.Router();
+router.get('/articles', articleController.index);
 
-router.post('/login', LoginValidate, User.login);
-router.post('/register', RegisterValidate, User.register);
-router.get('/articles', Article.index);
-router.post('/article', CheckLogin.checkLogin, CreateArticleValidate, Article.create);
-
-export default router
+export default router;
