@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   up(queryInterface, Sequelize) {
     return queryInterface.createTable('categories', {
       id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },

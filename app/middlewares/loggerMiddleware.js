@@ -1,6 +1,8 @@
-import moment from 'moment';
+'use strict';
 
-export default async (ctx, next) => {
+const moment = require('moment');
+
+module.exports = async (ctx, next) => {
   const start = new Date();
   await next();
   const ms = new Date() - start;

@@ -1,6 +1,8 @@
-import crypto from 'crypto';
+'use strict';
 
-export default class BaseComponent {
+const crypto = require('crypto');
+
+module.exports = class BaseComponent {
   constructor() {}
 
   encryption(password) {
@@ -12,4 +14,4 @@ export default class BaseComponent {
     const md5 = crypto.createHash('md5');
     return md5.update(password).digest('base64');
   }
-}
+};

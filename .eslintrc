@@ -12,6 +12,19 @@
     "quotes": ["error", "single"],
     "eqeqeq": 2,
     "indent": ["error", 2],
-    "no-console": "off"
+    "no-console": "off",
+    "no-undef": [2],
+    "no-param-reassign": [
+      "error",
+      {
+        "props": false
+      }
+    ],
+    "no-unused-vars": [
+      "error",
+      {
+        "args": "none"
+      }
+    ]
   }
 }

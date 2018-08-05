@@ -1,9 +1,11 @@
+'use strict';
+
 // Configuration files to generate sequlizer db configuration based on current NODE ENV
 // Refer to https://github.com/sequelize/cli#configuration-file
-import config from '../config';
-import configResolver from './configResolver';
+const config = require('../config');
+const configResolver = require('./configResolver');
 
-const env = config.get('NODE_ENV');
+const env = config.get('APP_ENV');
 const resolveConfig = configResolver(config);
 const dbConfig = {};
 
@@ -14,7 +16,7 @@ dbConfig[env] = {
   database: resolveConfig('DB_DATABASE') || 'laravue',
   host: resolveConfig('DB_HOST') || 'localhost',
   port: parseInt(resolveConfig('DB_PORT'), 10),
-  dialect: 'mysql',
+  dialect: resolveConfig('DB_CONNECTION') || 'mysql',
   pool: {
     max: parseInt(resolveConfig('DB_POOL'), 10) || 5,
     min: 0,
@@ -23,4 +25,4 @@ dbConfig[env] = {
   logging: console.log()
 };
 
-export default dbConfig;
+module.exports = dbConfig;

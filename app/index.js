@@ -1,12 +1,13 @@
-import Koa from 'koa';
-import json from 'koa-json';
-import bodyparser from 'koa-bodyparser';
-import logger from 'koa-logger';
-import routes from './routes';
-import config from './config';
-import configResolver from './config/configResolver';
-import loggerMiddleware from './middlewares/loggerMiddleware';
-import corsMiddleware from './middlewares/corsMiddleware';
+'use strict';
+
+const Koa = require('koa');
+const json = require('koa-json');
+const bodyparser = require('koa-bodyparser');
+const logger = require('koa-logger');
+const router = require('./routes/api');
+const config = require('../config');
+const configResolver = require('../config/configResolver');
+const loggerMiddleware = require('./middlewares/loggerMiddleware');
 
 const app = new Koa();
 const configResolve = configResolver(config);
@@ -21,10 +22,8 @@ app.use(json());
 app.use(logger());
 // logger
 app.use(loggerMiddleware);
-// cors
-app.use(corsMiddleware);
 // routes
-app.use(routes);
+app.use(router.routes());
 // error-handling
 app.on('error', (err, ctx) => {
   // eslint-disable-next-line no-console
@@ -32,3 +31,5 @@ app.on('error', (err, ctx) => {
 });
 
 app.listen(configResolve('PORT') || 5000);
+
+module.exports = app;
