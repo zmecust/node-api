@@ -22,7 +22,7 @@ dbConfig[env] = {
     min: 0,
     idle: 10000
   },
-  logging: console.log()
+  logging: console.log
 };
 
 module.exports = dbConfig;

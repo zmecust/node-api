@@ -21,7 +21,7 @@ app.use(
 app.use(json());
 app.use(logger());
 // logger
-app.use(loggerMiddleware);
+app.use(loggerMiddleware());
 // routes
 app.use(router.routes());
 // error-handling
