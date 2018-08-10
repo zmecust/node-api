@@ -5,7 +5,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: false
+        allowNull: false,
       },
       name: { type: Sequelize.STRING },
       email: { type: Sequelize.STRING },
@@ -24,10 +24,10 @@ module.exports = {
       last_actived_at: { type: Sequelize.DATE, defaultValue: Date.now },
       created_at: { type: Sequelize.DATE, defaultValue: Date.now },
       updated_at: { type: Sequelize.DATE, defaultValue: Date.now },
-      deleted_at: { allowNull: true, type: Sequelize.DATE }
+      deleted_at: { allowNull: true, type: Sequelize.DATE },
     });
   },
   down(queryInterface) {
     return queryInterface.dropTable('users');
-  }
+  },
 };

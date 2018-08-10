@@ -10,10 +10,10 @@ module.exports = {
       is_hidden: { type: Sequelize.INTEGER, defaultValue: 0 },
       created_at: { type: Sequelize.DATE, defaultValue: Date.now },
       updated_at: { type: Sequelize.DATE, defaultValue: Date.now },
-      deleted_at: { allowNull: true, type: Sequelize.DATE }
+      deleted_at: { allowNull: true, type: Sequelize.DATE },
     });
   },
   down(queryInterface) {
     return queryInterface.dropTable('comments');
-  }
+  },
 };

@@ -20,9 +20,9 @@ dbConfig[env] = {
   pool: {
     max: parseInt(resolveConfig('DB_POOL'), 10) || 5,
     min: 0,
-    idle: 10000
+    idle: 10000,
   },
-  logging: console.log
+  logging: console.log,
 };
 
 module.exports = dbConfig;

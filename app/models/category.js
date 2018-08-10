@@ -12,12 +12,12 @@ module.exports = (sequelize, DataTypes) => {
       classMethods: {
         associate(models) {
           Category.hasMany(models.article);
-        }
+        },
       },
       instanceMethods: {},
       hooks: {},
       paranoid: true,
-      underscored: true
+      underscored: true,
     }
   );
   return Category;

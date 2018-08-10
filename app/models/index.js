@@ -16,8 +16,7 @@ const db = {};
 
 // store your model definitions in a single file using the import method
 // http://docs.sequelizejs.com/en/latest/docs/models-definition/#configuration
-fs
-  .readdirSync(__dirname)
+fs.readdirSync(__dirname)
   .filter(file => file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js')
   .forEach(file => {
     const model = sequelize['import'](path.join(__dirname, file));

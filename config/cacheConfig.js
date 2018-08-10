@@ -24,8 +24,8 @@ const cacheConfig = {
     },
     file: {
       path: '',
-    }
-  }
+    },
+  },
 };
 
 module.exports = cacheConfig;

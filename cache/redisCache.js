@@ -20,9 +20,7 @@ class redisCache {
     redisClient.set(key, value, 'EX', duration);
   }
 
-  delete(key) {
-
-  }
+  delete(key) {}
 }
 
 module.exports = new redisCache();

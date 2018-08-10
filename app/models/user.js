@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       likes_count: { type: DataTypes.INTEGER, defaultValue: 0 },
       followers_count: { type: DataTypes.INTEGER, defaultValue: 0 },
       followings_count: { type: DataTypes.INTEGER, defaultValue: 0 },
-      is_banned: { type: DataTypes.INTEGER, defaultValue: 0 },    //0:未禁用、 1:已禁用
+      is_banned: { type: DataTypes.INTEGER, defaultValue: 0 }, //0:未禁用、 1:已禁用
       is_confirmed: { type: DataTypes.INTEGER, defaultValue: 0 }, //0:未激活、 1:已激活
       last_actived_at: { type: DataTypes.DATE, defaultValue: Date.now },
       created_at: { type: DataTypes.DATE, defaultValue: Date.now },
@@ -26,12 +26,12 @@ module.exports = (sequelize, DataTypes) => {
         associate(models) {
           User.hasMany(models.article);
           User.hasMany(models.comment);
-        }
+        },
       },
       instanceMethods: {},
       hooks: {},
       paranoid: true,
-      underscored: true
+      underscored: true,
     }
   );
   return User;

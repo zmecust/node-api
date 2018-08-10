@@ -2,12 +2,7 @@
 
 const _ = require('lodash');
 const Promise = require('bluebird');
-const {
-  ConflictError,
-  NotFoundException,
-  ValidationException,
-  DeleteAbortedWarning
-} = require('../exceptions');
+const { ConflictError, NotFoundException, ValidationException, DeleteAbortedWarning } = require('../exceptions');
 
 const errorHandler = (ctx, extraInfo = undefined) => error => {
   const info = {

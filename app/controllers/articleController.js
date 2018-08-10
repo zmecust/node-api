@@ -27,7 +27,7 @@ class articleController extends BaseController {
         attributes: articleAttributes,
         limit,
         offset: (page - 1) * limit,
-        order: [['created_at', 'DESC']]
+        order: [['created_at', 'DESC']],
       });
       cache.set('articles' + page, JSON.stringify(articles), 10);
     }
